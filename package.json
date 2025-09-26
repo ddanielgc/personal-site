@@ -2,19 +2,27 @@
     "name": "danielgusmaocampos.com",
     "main": "index.ts",
     "devDependencies": {
-        "@types/node": "^18",
-        "typescript": "^5.0.0"
+        "@types/node": "^22.14.0",
+        "typescript": "~5.8.2",
+        "@vitejs/plugin-react": "^5.0.0",
+        "vite": "^6.2.0"
     },
     "scripts": {
         "build": "tsc",
         "watch": "tsc -w",
-        "preview": "pulumi preview",
-        "deploy:prod": "AWS_PROFILE=prod pulumi up -s prod --yes",
-        "destroy": "pulumi destroy"
+        "preview": "PULUMI_NODEJS_TSCONFIG_PATH=tsconfig.pulumi.json AWS_PROFILE=prod pulumi preview -s prod",
+        "deploy:prod": "npm run build:web && npm run deploy:infra && npm run upload:s3 && npm run flush:cdn",
+        "destroy": "PULUMI_NODEJS_TSCONFIG_PATH=tsconfig.pulumi.json pulumi destroy",
+        "build:web": "vite build",
+        "deploy:infra": "PULUMI_NODEJS_TSCONFIG_PATH=tsconfig.pulumi.json AWS_PROFILE=prod pulumi up -s prod --yes",
+        "upload:s3": "BUCKET=$(AWS_PROFILE=prod pulumi stack output bucketNameOut -s prod) && aws s3 sync dist s3://$BUCKET --delete --profile prod",
+        "flush:cdn": "DIST_ID=$(AWS_PROFILE=prod pulumi stack output distributionId -s prod) && aws cloudfront create-invalidation --distribution-id $DIST_ID --paths '/*' --profile prod"
     },
     "dependencies": {
         "@pulumi/aws": "^7.0.0",
         "@pulumi/awsx": "^3.0.0",
-        "@pulumi/pulumi": "^3.113.0"
+        "@pulumi/pulumi": "^3.113.0",
+        "react": "^19.1.1",
+        "react-dom": "^19.1.1"
     }
 }

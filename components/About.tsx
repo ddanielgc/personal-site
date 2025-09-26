@@ -8,13 +8,27 @@ const About: React.FC = () => {
         <div className="lg:col-span-1 flex justify-center lg:justify-start">
           <div className="relative group">
             <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-slate-800 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
-            <img
-              src="/daniel-campos.webp"
-              alt="A black and white headshot of Daniel Gusmão Campos"
-              className="relative rounded-lg shadow-xl w-64 h-64 object-cover object-top border-4 border-slate-800"
-              width="256"
-              height="256"
-            />
+            <picture>
+              <source
+                type="image/webp"
+                srcSet="/daniel-campos-256.webp 256w, /daniel-campos-512.webp 512w, /daniel-campos-1024.webp 1024w"
+                sizes="(min-width:1024px) 256px, 40vw"
+              />
+              <source
+                type="image/jpeg"
+                srcSet="/daniel-campos-256.jpg 256w, /daniel-campos-512.jpg 512w, /daniel-campos-1024.jpg 1024w"
+                sizes="(min-width:1024px) 256px, 40vw"
+              />
+              <img
+                src="/daniel-campos-512.jpg"
+                alt="A black and white headshot of Daniel Gusmão Campos"
+                className="relative rounded-lg shadow-xl w-64 h-64 object-cover object-top border-4 border-slate-800"
+                width={256}
+                height={256}
+                decoding="async"
+                loading="lazy"
+              />
+            </picture>
           </div>
         </div>
 

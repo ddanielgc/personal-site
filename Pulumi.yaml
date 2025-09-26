@@ -5,6 +5,10 @@ runtime:
   options:
     packagemanager: npm
 config:
+  danielgusmaocampos.com:domain: danielgusmaocampos.com
+  danielgusmaocampos.com:hostedZoneId: Z08022272AA95SC42VKL2
+  danielgusmaocampos.com:certificateArn: arn:aws:acm:us-east-1:951590687560:certificate/4a80ef5b-123a-45d5-b8d1-cc9421f22cdd
+  danielgusmaocampos.com:bucketName: danielgusmaocampos-com-prod-951590687560
   pulumi:tags:
     value:
       pulumi:template: aws-typescript
