@@ -1,61 +1,67 @@
- # AWS TypeScript Pulumi Template
+# Personal Website Infrastructure
 
- A minimal Pulumi template for provisioning AWS infrastructure using TypeScript. This template creates an Amazon S3 bucket and exports its name.
+This project provisions the infrastructure for hosting the personal website `danielgusmaocampos.com` using Pulumi and AWS. The website is a React-based static SPA hosted on S3, served via CloudFront, secured with ACM, and managed with Route53 DNS.
 
- ## Prerequisites
+## Stack Overview
 
- - Pulumi CLI (>= v3): https://www.pulumi.com/docs/get-started/install/
- - Node.js (>= 14): https://nodejs.org/
- - AWS credentials configured (e.g., via `aws configure` or environment variables)
+- **Frontend**: React SPA
+- **Infrastructure**:
+  - **S3**: Static site hosting
+  - **CloudFront**: Content delivery network (CDN) with HTTPS
+  - **ACM**: SSL/TLS certificates for HTTPS
+  - **Route53**: DNS management for `danielgusmaocampos.com`
+- **IaC Tool**: Pulumi (TypeScript)
 
- ## Getting Started
+## Prerequisites
 
- 1. Initialize a new Pulumi project:
+- Pulumi CLI (>= v3): [Install Pulumi](https://www.pulumi.com/docs/get-started/install/)
+- Node.js (>= 14): [Install Node.js](https://nodejs.org/)
+- AWS credentials configured (e.g., via `aws configure` or environment variables)
 
-    ```bash
-    pulumi new aws-typescript
-    ```
+## Getting Started
 
-    Follow the prompts to set your:
-    - Project name
-    - Project description
-    - AWS region (defaults to `us-east-1`)
-
- 2. Preview and deploy your infrastructure:
-
-    ```bash
-    pulumi preview
-    pulumi up
-    ```
-
- 3. When you're finished, tear down your stack:
+1. Install dependencies:
 
     ```bash
-    pulumi destroy
-    pulumi stack rm
+    npm install
     ```
 
- ## Project Layout
+2. Configure Pulumi stack:
 
- - `Pulumi.yaml` — Pulumi project and template metadata
- - `index.ts` — Main Pulumi program (creates an S3 bucket)
- - `package.json` — Node.js dependencies
- - `tsconfig.json` — TypeScript compiler options
+    ```bash
+    pulumi stack select prod
+    ```
 
- ## Configuration
+3. Deploy the infrastructure:
 
- | Key           | Description                             | Default     |
- | ------------- | --------------------------------------- | ----------- |
- | `aws:region`  | The AWS region to deploy resources into | `us-east-1` |
+    ```bash
+    pulumi up --yes
+    ```
 
- Use `pulumi config set <key> <value>` to customize configuration.
+4. Access the website:
+   - The website will be available at the CloudFront distribution domain name.
 
- ## Next Steps
+## Project Layout
 
- - Extend `index.ts` to provision additional resources (e.g., VPCs, Lambda functions, DynamoDB tables).
- - Explore [Pulumi AWSX](https://www.pulumi.com/docs/reference/pkg/awsx/) for higher-level AWS components.
- - Consult the [Pulumi documentation](https://www.pulumi.com/docs/) for more examples and best practices.
+- `Pulumi.yaml` — Pulumi project and template metadata
+- `index.ts` — Pulumi program defining the AWS infrastructure
+- `tsconfig.json` — TypeScript configuration
+- `package.json` — Project dependencies and scripts
+- `components/` — React components for the website
+- `public/` — Static assets for the website
 
- ## Getting Help
+## Deployment
 
- If you encounter any issues or have suggestions, please open an issue in this repository.# personal-site
+To deploy the website to production:
+
+```bash
+npm run deploy:prod
+```
+
+## Teardown
+
+To destroy the infrastructure:
+
+```bash
+pulumi destroy --yes
+```
