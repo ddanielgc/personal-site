@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Logo from './Logo';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -25,9 +26,9 @@ const Header: React.FC = () => {
         <a 
           href="#hero" 
           onClick={(e) => handleNavClick(e, 'hero')}
-          className="text-xl font-bold text-slate-50 tracking-wider cursor-pointer"
+          className="cursor-pointer group"
         >
-          DGC
+          <Logo className="h-7 w-7 text-slate-50 group-hover:text-cyan-400 transition-colors duration-300" />
         </a>
         <ul className="hidden md:flex space-x-8 text-sm font-medium">
           <li><a href="#about" onClick={(e) => handleNavClick(e, 'about')} className="hover:text-cyan-400 transition-colors cursor-pointer">About</a></li>
