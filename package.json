@@ -8,6 +8,7 @@
         "vite": "^6.2.0"
     },
     "scripts": {
+        "dev": "vite",
         "build": "tsc",
         "watch": "tsc -w",
         "preview": "PULUMI_NODEJS_TSCONFIG_PATH=tsconfig.pulumi.json AWS_PROFILE=prod pulumi preview -s prod",
